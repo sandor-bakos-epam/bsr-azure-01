@@ -10,6 +10,22 @@
 				"typeProperties": {
 					"waitTimeInSeconds": 10
 				}
+			},
+			{
+				"name": "Wait01sec",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Wait10sec",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
 			}
 		],
 		"annotations": [],
