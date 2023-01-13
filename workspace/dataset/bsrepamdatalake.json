@@ -1,0 +1,17 @@
+{
+	"name": "bsrepamdatalake",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "bsrepamdatalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}
