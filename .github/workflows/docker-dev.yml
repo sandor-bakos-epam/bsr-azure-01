@@ -1,9 +1,8 @@
 
 name: ci
 
-on:
-  push:
-    branches: main
+on: push
+    #: branches: main
 
 jobs:
   docker:
@@ -29,9 +28,8 @@ jobs:
           password: ${{ secrets.ACR_SP_PASSWORD }}
       -
         name: Build and push
-        needs: [Login to ACR]
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: demo:v2
+          tags: demo:v1
