@@ -9,7 +9,7 @@ jobs:
   login:
     runs-on: ubuntu-latest
     environment:
-      name: dev
+      name: uat
     steps:
       -
         name: Login to ACR
