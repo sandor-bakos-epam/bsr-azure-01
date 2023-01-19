@@ -1,15 +1,17 @@
 
-name: ci
+name: Dockerfile build and push to ACR
 
-on:
-  push:
+on: 
+  push: 
     branches: main
+    paths:
+      - 'docker/**'
+      - '.github/workflows/docker-dev.yml'
 
 jobs:
   docker:
     runs-on: ubuntu-latest
-    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
-        #name: dev
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} #name: dev
     steps:
       -
         name: Checkout
@@ -29,9 +31,8 @@ jobs:
           password: ${{ secrets.ACR_SP_PASSWORD }}
       -
         name: Build and push
-        needs: [Login to ACR]
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./docker/
           push: true
-          tags: demo:v2
+          tags: bsrdevacr01.azurecr.io/samples/test:v1
