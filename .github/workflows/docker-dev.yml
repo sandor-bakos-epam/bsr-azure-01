@@ -17,4 +17,4 @@ jobs:
         with:
           registry: bsrdevacr01.azurecr.io
           username: ${{ vars.ACR_SP_APP_ID }}
-          password: ${{ vars.ACR_SP_PASSWORD }}
+          password: ${{ secrets.ACR_SP_PASSWORD }}
