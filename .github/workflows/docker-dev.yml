@@ -3,16 +3,15 @@ name: Dockerfile build and push to ACR
 
 on: 
   push: 
+    branches: main
     paths:
       - 'docker/**'
       - '.github/workflows/docker-dev.yml'
-#    branches: main
 
 jobs:
   docker:
     runs-on: ubuntu-latest
-    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
-        #name: dev
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} #name: dev
     steps:
       -
         name: Checkout
