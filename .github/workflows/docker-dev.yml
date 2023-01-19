@@ -1,5 +1,5 @@
 
-name: ci
+name: Dockerfile build and push to ACR
 
 on: push
     #: branches: main
@@ -31,5 +31,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          file: {context}/docker/Dockerfile
           push: true
-          tags: bsrdevacr01.azurecr.io/demo:v2
+          tags: bsrdevacr01.azurecr.io/samples/test:v1
