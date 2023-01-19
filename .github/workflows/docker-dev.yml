@@ -32,4 +32,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: bsrdevacr01.azurecr.io/demo:v1
+          tags: bsrdevacr01.azurecr.io/demo:v2
