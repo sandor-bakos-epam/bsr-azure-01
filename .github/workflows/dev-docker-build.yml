@@ -6,12 +6,12 @@ on:
     branches: main
     paths:
       - 'docker/**'
-      - '.github/workflows/docker-dev.yml'
+      - '.github/workflows/dev-docker-build.yml'
 
 jobs:
   docker:
     runs-on: ubuntu-latest
-    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} #name: dev
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
     steps:
       -
         name: Checkout
