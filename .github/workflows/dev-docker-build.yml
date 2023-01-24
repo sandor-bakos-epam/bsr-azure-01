@@ -3,7 +3,7 @@ name: Dockerfile build and push to ACR
 
 on: 
   push: 
-    #branches: main
+    branches: main
     paths:
       - 'docker/**'
       - '.github/workflows/dev-docker-build.yml'
@@ -28,7 +28,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GH_PACKAGES_TOKEN }}
       -
         name: Build and push
         uses: docker/build-push-action@v3
