@@ -32,5 +32,5 @@ jobs:
         uses: azure/powershell@v1
         with:
             inlineScript: |
-              Get-Date 
+              Import-AzContainerRegistryImage -RegistryName bsrdevacr01 -ResourceGroupName bsr-dev-acr-rg -SourceRegistryUri ghcr.io/sandor-bakos-epam -SourceImage sandor-bakos-epam/demo:latest -Username ${{ github.actor }} -Password ${{ secrets.GH_PACKAGES_TOKEN }}
             azPSVersion: "latest"
