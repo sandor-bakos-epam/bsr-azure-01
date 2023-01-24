@@ -1,0 +1,36 @@
+
+name: Dockerfile pull from GHCR and push to ACR
+
+on: 
+  push: 
+    #branches: main
+    paths:
+      - 'docker/**'
+      - '.github/workflows/dev-docker-build.yml'
+      - '.github/workflows/dev-docker-push_to_ACR.yml'
+
+jobs:
+  docker:
+    runs-on: windows-latest
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
+    steps:
+      - 
+        name: Login to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: bsrdevacr01.azurecr.io
+          username: ${{ vars.ACR_SP_APP_ID }}
+          password: ${{ secrets.ACR_SP_PASSWORD }}
+      - 
+        name: Login to GHCR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_PACKAGES_TOKEN }}
+      - name: 'Get RG with powershell action'
+        uses: azure/powershell@v1
+        with:
+            inlineScript: |
+              Import-AzContainerRegistryImage -RegistryName bsrdevacr01 -ResourceGroupName bsr-dev-acr-rg -SourceRegistryUri ghcr.io/sandor-bakos-epam -SourceImage sandor-bakos-epam/demo:latest -Username ${{ github.actor }} -Password ${{ secrets.GH_PACKAGES_TOKEN }}
+            azPSVersion: "latest"
