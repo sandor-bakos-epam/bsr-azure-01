@@ -28,13 +28,6 @@ jobs:
           login-server: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GH_PACKAGES_TOKEN }}
-      - 
-        name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true
-
       - name: 'Get RG with powershell action'
         uses: azure/powershell@v1
         with:
