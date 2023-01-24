@@ -35,4 +35,4 @@ jobs:
         with:
           context: ./docker/
           push: true
-          tags: ghcr.io/${{ github.actor }}/demo:v1
+          tags: ghcr.io/${{ github.repository_owner }}/demo:v1
