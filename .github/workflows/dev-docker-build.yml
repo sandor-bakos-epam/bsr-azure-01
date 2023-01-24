@@ -1,5 +1,5 @@
 
-name: Dockerfile build and push to ACR
+name: Dockerfile build and push to GHCR
 
 on: 
   push: 
