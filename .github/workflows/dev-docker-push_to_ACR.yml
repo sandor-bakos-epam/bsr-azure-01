@@ -41,5 +41,5 @@ jobs:
         uses: azure/powershell@v1
         with:
             inlineScript: |
-              Get-Date
+              Get-Date 
             azPSVersion: "latest"
