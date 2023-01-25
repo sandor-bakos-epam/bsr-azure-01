@@ -19,7 +19,7 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: bsrdevacr01.azurecr.io
-          username: ${{ vars.ACR_SP_APP_ID }}
+          username: ${{ vars.ACR_SP_APP_ID }} 
           password: ${{ secrets.ACR_SP_PASSWORD }}
       - 
         name: Login to GHCR
