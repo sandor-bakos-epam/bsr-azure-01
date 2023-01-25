@@ -1,27 +1,20 @@
-# File: .github/workflows/OIDC_workflow.yml
-
-name: Run Azure Login with OIDC
+name: AzureLoginSample
 
 on: 
   push: 
-    branches: main
+    branches: feature/github-actions
 
-permissions:
-      id-token: write
-      contents: read
-jobs: 
+jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Az CLI login'
+      - name: Log in with Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  
-      - name: 'Run az commands'
-        run: |
-          az account show
-          az group list
-          pwd 
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          enable-AzPSSession: true
+      - name: Azure PowerShell Action
+        uses: Azure/powershell@v1
+        with:
+          inlineScript: Get-AzResourceGroup -Name "bsr-dev-rg"
+          azPSVersion: "latest"

@@ -3,7 +3,7 @@ name: Dockerfile pull from GHCR and push to ACR
 
 on: 
   push: 
-    #branches: main
+    branches: main
     paths:
       - 'docker/**'
       - '.github/workflows/dev-docker-build.yml'
