@@ -8,12 +8,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         env:
-          linked_services_path: ${{ github.workspace }}\data
+          linked_services_path: "${{ github.workspace }}\data"
       - name: Run Azure PowerShell script
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            if(Test-Path -Path $linked_services_path)
+            if(Test-Path -Path ${{ env.linked_services_path }})
             {
               foreach($file in Get-ChildItem -Path $linked_services_path\*.json -Name)
               {
