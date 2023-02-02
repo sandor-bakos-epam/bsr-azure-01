@@ -12,7 +12,7 @@ jobs:
         with:
           inlineScript: |
             $linkedServicePath = "${{ github.workspace }}\data"
-            if(Test-Path $linkedServicePath -and Test-Path $linkedServicePath\*)
+            if((Test-Path $linkedServicePath) -and (Test-Path $linkedServicePath\*))
             {
               foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
               {
