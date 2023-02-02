@@ -13,6 +13,7 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
+            echo $linked_services_path
             if(Test-Path -Path ${{ env.linked_services_path }})
             {
               foreach($file in Get-ChildItem -Path $linked_services_path\*.json -Name)
