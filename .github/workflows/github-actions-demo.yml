@@ -1,6 +1,6 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on: workflow_dispatch:
 jobs:
   Explore-GitHub-Actions:
     runs-on: windows-latest
@@ -11,16 +11,16 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\xyz\*.json -Name)
+            foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\*.json -Name)
             {
               $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
               echo $pipeline.name
             }
           azPSVersion: "latest"
-      # - name: Run iteration with powershell
-      # - run: |
-      #     foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\*.json -Name)
-      #     {
-      #       $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
-      #       echo $pipeline.name
-      #     }
+      - name: Run iteration with powershell
+      - run: |
+          foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\*.json -Name)
+          {
+            $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
+            echo $pipeline.name
+          }
