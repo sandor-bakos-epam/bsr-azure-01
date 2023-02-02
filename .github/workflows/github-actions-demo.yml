@@ -19,13 +19,13 @@ jobs:
             foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data -Name)
             {
               $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
-              echo "$file and the pipeline's name: $pipeline.name"
+              echo $pipeline.name
             }
           azPSVersion: "latest"
       - run: |
           foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data -Name)
           {
             $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
-            echo "$file and the pipeline's name: $pipeline.name"
+            echo $pipeline.name
           }
       - run: echo "🍏 This job's status is ${{ job.status }}."
