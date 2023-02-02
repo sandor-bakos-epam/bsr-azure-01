@@ -11,11 +11,12 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            if(Test-Path -Path ${{ github.workspace }}\data\xyz)
+            $linkedServicePath = ${{ github.workspace }}\data
+            if(Test-Path -Path $linkedServicePath)
             {
-              foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\*.json -Name)
+              foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
               {
-                $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
+                $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
                 echo $pipeline.name
               }
             }
@@ -23,8 +24,9 @@ jobs:
           azPSVersion: "latest"
       - name: Run iteration with powershell
         run: |
-          foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\*.json -Name)
+          $linkedServicePath = ${{ github.workspace }}\data
+          foreach($file in Get-ChildItem -Path $linkedServicePath\data\*.json -Name)
           {
-            $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
+            $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
             echo $pipeline.name
           }
