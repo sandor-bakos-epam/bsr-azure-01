@@ -25,7 +25,7 @@ jobs:
       - name: Run iteration with powershell
         run: |
           $linkedServicePath = "${{ github.workspace }}\data"
-          foreach($file in Get-ChildItem -Path $linkedServicePath\data\*.json -Name)
+          foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
           {
             $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
             echo $pipeline.name
