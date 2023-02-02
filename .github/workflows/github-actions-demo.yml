@@ -7,27 +7,21 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        env:
-          linked_services_path: ${{ github.workspace }}\data
       - name: Run Azure PowerShell script
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            echo $linked_services_path
-            if(Test-Path -Path ${{ env.linked_services_path }})
+            if(Test-Path -Path ${{ github.workspace }}\data)
+            foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\*.json -Name)
             {
-              foreach($file in Get-ChildItem -Path $linked_services_path\*.json -Name)
-              {
-                $pipeline = Get-Content -Raw $linked_services_path\$file | ConvertFrom-Json
-                echo $pipeline.name
-              }
+              $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
+              echo $pipeline.name
             }
-            else { "Path doesn't exist." }
           azPSVersion: "latest"
       - name: Run iteration with powershell
         run: |
-          foreach($file in Get-ChildItem -Path $linked_services_path\*.json -Name)
+          foreach($file in Get-ChildItem -Path ${{ github.workspace }}\data\*.json -Name)
           {
-            $pipeline = Get-Content -Raw $linked_services_path\$file | ConvertFrom-Json
+            $pipeline = Get-Content -Raw ${{ github.workspace }}\data\$file | ConvertFrom-Json
             echo $pipeline.name
           }
