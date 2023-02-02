@@ -1,0 +1,13 @@
+{
+    "name": "HttpServer1",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "HttpServer",
+        "typeProperties": {
+            "url": "https://data.mozio.com/api/queries/733/results.csv?api_key=we52tZ0g7DozShGAJI491DDIrIOEuiiHh3Jk9DjS",
+            "enableServerCertificateValidation": true,
+            "authenticationType": "Anonymous"
+        }
+    }
+}
