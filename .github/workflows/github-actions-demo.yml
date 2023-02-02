@@ -1,14 +1,14 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
-env:
-  linked_services_path: ${{ github.workspace }}\data
 jobs:
   Explore-GitHub-Actions:
     runs-on: windows-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        env:
+          linked_services_path: ${{ github.workspace }}\data
       - name: Run Azure PowerShell script
         uses: azure/powershell@v1
         with:
@@ -21,10 +21,7 @@ jobs:
                 echo $pipeline.name
               }
             }
-            else
-            {
-                echo "Path doesn't exist."
-            }
+            else { "Path doesn't exist." }
           azPSVersion: "latest"
       - name: Run iteration with powershell
         run: |
