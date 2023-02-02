@@ -18,7 +18,12 @@ jobs:
           inlineScript: |
             foreach($file in Get-ChildItem -Path ${{ github.workspace }}\docker -Name)
             {
-              echo "This is " + $file
+              echo "This is $file"
             }
           azPSVersion: "latest"
+      - run: |
+          foreach($file in Get-ChildItem -Path ${{ github.workspace }}\docker -Name)
+          {
+            echo "This is $file"
+          }
       - run: echo "🍏 This job's status is ${{ job.status }}."
