@@ -8,7 +8,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         env:
-          linked_services_path: "${{ github.workspace }}\data"
+          linked_services_path: ${{ github.workspace }}\data
       - name: Run Azure PowerShell script
         uses: azure/powershell@v1
         with:
