@@ -1,7 +1,7 @@
 name: Run Azure Login with OpenID Connect
 on: 
-  push: 
-    branches: feature/github-actions
+  #push: 
+  #  branches: feature/github-actions
   workflow_dispatch:
 
 permissions:
