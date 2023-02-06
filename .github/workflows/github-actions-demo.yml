@@ -11,6 +11,7 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
+            Get-ChildItem
             $linkedServicePath = "${{ github.workspace }}\data"
             if((Test-Path $linkedServicePath) -and (Test-Path $linkedServicePath\*))
             {
@@ -28,8 +29,6 @@ jobs:
       run:
         working-directory: data
     steps:
-      - name: Test working-directory
-        run: Get-ChildItem
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Run iteration with powershell
