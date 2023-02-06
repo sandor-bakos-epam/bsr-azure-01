@@ -7,22 +7,31 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Run Azure PowerShell script
-        uses: azure/powershell@v1
-        with:
-          inlineScript: |
-            Get-ChildItem
-            $linkedServicePath = "${{ github.workspace }}\data"
-            if((Test-Path $linkedServicePath) -and (Test-Path $linkedServicePath\*))
-            {
-              foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
-              {
-                $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
-                echo $pipeline.name
-              }
-            }
-            else { "Path doesn't exists!" }
-          azPSVersion: "latest"
+      - name: Run iteration with powershell
+        run: |
+          Get-ChildItem
+          $linkedServicePath = "${{ github.workspace }}\data"
+          foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
+          {
+            $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
+            echo $pipeline.name
+          }
+      # - name: Run Azure PowerShell script
+      #   uses: azure/powershell@v1
+      #   with:
+      #     inlineScript: |
+      #       Get-ChildItem
+      #       $linkedServicePath = "${{ github.workspace }}\data"
+      #       if((Test-Path $linkedServicePath) -and (Test-Path $linkedServicePath\*))
+      #       {
+      #         foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
+      #         {
+      #           $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
+      #           echo $pipeline.name
+      #         }
+      #       }
+      #       else { "Path doesn't exists!" }
+      #     azPSVersion: "latest"
   Explore-GitHub-Actions-job2:
     runs-on: windows-latest
     defaults:
