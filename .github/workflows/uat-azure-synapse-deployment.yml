@@ -41,13 +41,9 @@ jobs:
             az synapse pipeline show --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name sample_pipeline_04 --query name
           }
         }
-        catch [PipelineNotFound]
-        {
-          "The Pipeline was not found in ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} workspace."
-        }
         catch
         {
-          "An error occurred that could not be resolved."
+          "The Pipeline was not found in ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} workspace."
         }
     - name: 'Upsert Azure Synapse linked services'
       run: |
