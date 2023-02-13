@@ -30,7 +30,7 @@ jobs:
         $synapsePipelinePath = "${{ github.workspace }}\data\synapse_pipelines"
         foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
         {
-          $pipeline = Get-Content -Raw $linkedServicePath\linked_services\$file | ConvertFrom-Json
-          echo $file
+          $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
+          $file
         }
       # az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name  --file $file
