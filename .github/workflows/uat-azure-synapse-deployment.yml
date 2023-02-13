@@ -18,9 +18,19 @@ jobs:
       uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
     - name: 'Run Azure CLI commands'
       run: |
           az account show
           az group list
           pwd  
+    - name: Check out repository code
+        uses: actions/checkout@v3
+    - name: 'Upsert Azure Synapse pipelines'
+      run: |
+        $synapsePipelinePath = "${{ github.workspace }}\data\synapse_pipelines"
+        foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
+        {
+          $pipeline = Get-Content -Raw $linkedServicePath\linked_services\$file | ConvertFrom-Json
+          echo $file
+          #az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name  --file $file
+        }
