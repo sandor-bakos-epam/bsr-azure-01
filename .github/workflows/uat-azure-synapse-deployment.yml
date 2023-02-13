@@ -32,7 +32,7 @@ jobs:
     # - The files' names have to be equal with the upserted or imported object's name. 
     - name: 'Check Synapse resource exists'
       run: |
-        $pipelineName = "sample_pipeline_04"
+        $pipelineName = "sample_pipeline_02"
         $pipelineNames = az synapse pipeline list --workspace-name bsr-uat-synapse-01 --query [].name
         if(!([string]$pipelineNames -match $pipelineName))
         {
