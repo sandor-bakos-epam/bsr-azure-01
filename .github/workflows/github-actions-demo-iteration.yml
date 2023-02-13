@@ -1,0 +1,35 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  push: 
+    paths:
+      - '.github/workflows/github-actions-demo-iteration.yml'
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run Azure PowerShell script
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            $linkedServicePath = "${{ github.workspace }}\data"
+            if((Test-Path $linkedServicePath) -and (Test-Path $linkedServicePath\*))
+            {
+              foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
+              {
+                $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
+                echo $pipeline.name
+              }
+            }
+            else { "Path doesn't exists!" }
+          azPSVersion: "latest"
+      - name: Run iteration with powershell
+        run: |
+          $linkedServicePath = "${{ github.workspace }}\data"
+          foreach($file in Get-ChildItem -Path $linkedServicePath\*.json -Name)
+          {
+            $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
+            echo $pipeline.name
+          }

@@ -28,9 +28,9 @@ jobs:
           login-server: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GH_PACKAGES_TOKEN }}
-      - name: 'Get RG with powershell action'
-        uses: azure/powershell@v1
-        with:
-            inlineScript: |
-              Import-AzContainerRegistryImage -RegistryName bsrdevacr01 -ResourceGroupName bsr-dev-acr-rg -SourceRegistryUri ghcr.io/sandor-bakos-epam -SourceImage sandor-bakos-epam/demo:latest -Username ${{ github.actor }} -Password ${{ secrets.GH_PACKAGES_TOKEN }}
-            azPSVersion: "latest"
+      # - name: 'Get RG with powershell action'
+      #   uses: azure/powershell@v1
+      #   with:
+      #       inlineScript: |
+      #         Import-AzContainerRegistryImage -RegistryName bsrdevacr01 -ResourceGroupName bsr-dev-acr-rg -SourceRegistryUri ghcr.io/sandor-bakos-epam -SourceImage sandor-bakos-epam/demo:latest -Username ${{ github.actor }} -Password ${{ secrets.GH_PACKAGES_TOKEN }}
+      #       azPSVersion: "latest"

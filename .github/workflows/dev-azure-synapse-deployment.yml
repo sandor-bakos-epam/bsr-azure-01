@@ -1,0 +1,26 @@
+name: GitHub Actions - Azure Synapse deploy - Demo
+run-name: ${{ github.actor }} is testing out Azure Synapse deployment with GitHub Actions 🚀
+on: 
+  push: 
+    paths:
+      - '.github/workflows/dev-azure-synapse-deployment.yml'
+
+permissions:
+      id-token: write
+      contents: read
+      
+jobs: 
+  build-and-deploy:
+    runs-on: windows-latest
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
+    steps:
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+  
+    - name: 'Run Azure CLI commands'
+      run: |
+          az account show
+          az group list
+          pwd  

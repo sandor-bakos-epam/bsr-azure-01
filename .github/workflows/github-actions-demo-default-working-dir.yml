@@ -1,0 +1,25 @@
+name: GitHub Actions default working directory Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions default working directory 🚀
+on: 
+  push: 
+    paths:
+      - 'docker/**'
+      - '.github/workflows/github-actions-demo-default-working-dir.yml'
+jobs:
+  Explore-GitHub-Actions-job1:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run command with powershell
+        run:  Get-ChildItem
+  Explore-GitHub-Actions-job2:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: data
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run command with powershell
+        run:  Get-ChildItem
