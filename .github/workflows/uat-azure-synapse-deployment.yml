@@ -32,5 +32,5 @@ jobs:
         {
           $pipeline = Get-Content -Raw $linkedServicePath\linked_services\$file | ConvertFrom-Json
           echo $file
-          #az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name  --file $file
         }
+      # az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name  --file $file
