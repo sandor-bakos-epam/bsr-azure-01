@@ -23,7 +23,7 @@ jobs:
           az account show
           az group list
           pwd  
-    - name: Check out repository code
+    - name: 'Check out repository code'
       uses: actions/checkout@v3
     - name: 'Upsert Azure Synapse pipelines'
       run: |
@@ -32,6 +32,6 @@ jobs:
         {
           $pipeline = Get-Content -Raw $linkedServicePath\$file | ConvertFrom-Json
           $file
-          ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }}
+          echo ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }}
         }
       # az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name  --file $file
