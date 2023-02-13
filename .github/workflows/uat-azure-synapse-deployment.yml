@@ -31,8 +31,7 @@ jobs:
         foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
         {
           # $pipeline = Get-Content -Raw $synapsePipelinePath\$file | ConvertFrom-Json
-          $file.Basename 
-          ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }}
-          az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name $file.Basename --file $synapsePipelinePath\$file
+           az synapse workspace show --name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --resource-group bsr-uat-rg
+          # az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name $file.Basename --file $synapsePipelinePath\$file
         }
       
