@@ -30,10 +30,29 @@ jobs:
     #   Source: https://learn.microsoft.com/en-us/azure/synapse-analytics/security/how-to-manage-synapse-rbac-role-assignments
     # - "az synapse pipeline set" is not suggested by Microsoft
     # - The files' names have to be equal with the upserted or imported object's name. 
+    - name: 'Check Synapse resource exists'
+      run: |
+        try
+        {
+          $synapsePipelinePath = "${{ github.workspace }}\data\synapse\pipeline"
+          foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
+          {
+            #(Get-Item $synapseLinkedServicesPath/$file).Basename
+            az synapse pipeline show --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name sample_pipeline_04 --query name
+          }
+        }
+        catch [PipelineNotFound]
+        {
+          "The Pipeline was not found in ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} workspace."
+        }
+        catch
+        {
+          "An error occurred that could not be resolved."
+        }
     - name: 'Upsert Azure Synapse linked services'
       run: |
         $synapseLinkedServicesPath = "${{ github.workspace }}\data\synapse\pipeline"
-        foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
+        foreach($file in Get-ChildItem -Path $synapseLinkedServicesPath\*.json -Name)
         {
           az synapse linked-service update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename --file @$synapseLinkedServicesPath/$file
         }
