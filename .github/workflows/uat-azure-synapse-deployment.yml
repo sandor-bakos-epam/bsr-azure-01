@@ -27,10 +27,12 @@ jobs:
       uses: actions/checkout@v3
     - name: 'Upsert Azure Synapse pipelines'
       run: |
+        # Service Principal needs permission for this action. You can set the permission in Synapse workspace/Manage/Access Control.
+        # Source: https://learn.microsoft.com/en-us/azure/synapse-analytics/security/how-to-manage-synapse-rbac-role-assignments
+        
         $synapsePipelinePath = "${{ github.workspace }}\data\synapse_pipelines"
         foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
         {
-          # $pipeline = Get-Content -Raw $synapsePipelinePath\$file | ConvertFrom-Json
           az synapse pipeline set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapsePipelinePath/$file).Basename --file @$synapsePipelinePath/$file
         }
       
