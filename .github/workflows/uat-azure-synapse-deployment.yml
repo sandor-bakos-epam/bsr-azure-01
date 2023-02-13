@@ -32,18 +32,11 @@ jobs:
     # - The files' names have to be equal with the upserted or imported object's name. 
     - name: 'Check Synapse resource exists'
       run: |
-        try
+        $pipelineName = "sample_pipeline_04"
+        $pipelineNames = az synapse pipeline list --workspace-name bsr-uat-synapse-01 --query [].name
+        if(!([string]$pipelineNames -match $pipelineName))
         {
-          $synapsePipelinePath = "${{ github.workspace }}\data\synapse\pipeline"
-          foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
-          {
-            #(Get-Item $synapseLinkedServicesPath/$file).Basename
-            az synapse pipeline show --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name sample_pipeline_04 --query name
-          }
-        }
-        catch
-        {
-          "The Pipeline was not found in ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} workspace."
+          "$pipelineName doesn't exist."
         }
     - name: 'Upsert Azure Synapse linked services'
       run: |
