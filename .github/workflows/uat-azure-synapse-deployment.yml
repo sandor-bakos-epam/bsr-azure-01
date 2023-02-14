@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing out Azure Synapse deployment with GitHu
 on: 
   push: 
     paths:
-      - '.github/workflows/dev-azure-synapse-deployment.yml'
+      - '.github/workflows/uat-azure-synapse-deployment.yml'
 
 permissions:
       id-token: write
@@ -18,9 +18,75 @@ jobs:
       uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
     - name: 'Run Azure CLI commands'
       run: |
           az account show
           az group list
           pwd  
+    - name: 'Check out repository code'
+      uses: actions/checkout@v3
+    # Dependencies:
+    # - Service Principal needs permission for this action. You can set the permission in Synapse workspace/Manage/Access Control.
+    #   Source: https://learn.microsoft.com/en-us/azure/synapse-analytics/security/how-to-manage-synapse-rbac-role-assignments
+    # - "az synapse pipeline set" is not suggested by Microsoft
+    # - The files' names have to be equal with the upserted or imported object's name. 
+    - name: 'Check Synapse resource exists'
+      run: |
+        $pipelineName = "sample_pipeline_02"
+        if(!([string](az synapse pipeline list --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --query [].name) -match $pipelineName))
+        {
+          "$pipelineName doesn't exist."
+        }
+        else
+        {
+          "$pipelineName exists."
+        }
+    - name: 'Upsert Azure Synapse linked services'
+      run: |
+        $synapseLinkedServicesPath = "${{ github.workspace }}\data\synapse\linkedService"
+        foreach($file in Get-ChildItem -Path $synapseLinkedServicesPath\*.json -Name)
+        {
+          az synapse linked-service update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename --file @$synapseLinkedServicesPath/$file
+        }
+    - name: 'Upsert Azure Synapse datasets'
+      run: |
+        $synapseDatasetPath = "${{ github.workspace }}\data\synapse\dataset"
+        foreach($file in Get-ChildItem -Path $synapseDatasetPath\*.json -Name)
+        {
+          az synapse dataset update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseDatasetPath/$file).Basename --file @$synapseDatasetPath/$file
+        }
+    - name: 'Upsert Azure Synapse sql scripts'
+      run: |
+        $synapseSQLScriptPath = "${{ github.workspace }}\data\synapse\sqlScript"
+        foreach($file in Get-ChildItem -Path $synapseSQLScriptPath\*.sql -Name)
+        {
+          az synapse sql-script import --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseSQLScriptPath/$file).Basename --file @$synapseSQLScriptPath/$file
+        }
+    - name: 'Upsert Azure Synapse notebooks'
+      run: |
+        $synapseNotebookPath = "${{ github.workspace }}\data\synapse\notebook"
+        foreach($file in Get-ChildItem -Path $synapseNotebookPath\*.ipynb -Name)
+        {
+          az synapse notebook import --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseNotebookPath/$file).Basename --file @$synapseNotebookPath/$file --spark-pool-name ${{ vars.AZURE_SYNAPSE_SPARK_POOL_NAME }}
+        }
+    - name: 'Upsert Azure Synapse dataflows'
+      run: |
+        $synapseDataFlowPath = "${{ github.workspace }}\data\synapse\dataflow"
+        foreach($file in Get-ChildItem -Path $synapseDataFlowPath\*.json -Name)
+        {
+          az synapse data-flow set --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseDataFlowPath/$file).Basename --file @$synapseDataFlowPath/$file
+        }
+    - name: 'Upsert Azure Synapse pipelines'
+      run: |
+        $synapsePipelinePath = "${{ github.workspace }}\data\synapse\pipeline"
+        foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
+        {
+          az synapse pipeline update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapsePipelinePath/$file).Basename --file @$synapsePipelinePath/$file
+        }
+    - name: 'Upsert Azure Synapse triggers'
+      run: |
+        $synapseTriggerPath = "${{ github.workspace }}\data\synapse\trigger"
+        foreach($file in Get-ChildItem -Path $synapseTriggerPath\*.json -Name)
+        {
+          az synapse trigger update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseTriggerPath/$file).Basename --file @$synapseTriggerPath/$file
+        }      
