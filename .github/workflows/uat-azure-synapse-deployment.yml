@@ -64,7 +64,7 @@ jobs:
         $synapseNotebookPath = "${{ github.workspace }}\data\synapse\notebook"
         foreach($file in Get-ChildItem -Path $synapseNotebookPath\*.ipynb -Name)
         {
-          az synapse notebook import --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseNotebookPath/$file).Basename --file @$synapseNotebookPath/$file
+          az synapse notebook import --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseNotebookPath/$file).Basename --file @$synapseNotebookPath/$file --spark-pool-name ${{ vars.AZURE_SYNAPSE_SPARK_POOL_NAME }}
         }
     - name: 'Upsert Azure Synapse dataflows'
       run: |
