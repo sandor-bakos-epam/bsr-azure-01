@@ -25,7 +25,7 @@ jobs:
           pwd  
     - name: 'Check out repository code'
       uses: actions/checkout@v3
-    # Comments:
+    # Dependencies:
     # - Service Principal needs permission for this action. You can set the permission in Synapse workspace/Manage/Access Control.
     #   Source: https://learn.microsoft.com/en-us/azure/synapse-analytics/security/how-to-manage-synapse-rbac-role-assignments
     # - "az synapse pipeline set" is not suggested by Microsoft
@@ -88,5 +88,5 @@ jobs:
         $synapseTriggerPath = "${{ github.workspace }}\data\synapse\trigger"
         foreach($file in Get-ChildItem -Path $synapseTriggerPath\*.json -Name)
         {
-          az synapse pipeline update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseTriggerPath/$file).Basename --file @$synapseTriggerPath/$file
+          az synapse trigger update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseTriggerPath/$file).Basename --file @$synapseTriggerPath/$file
         }      
