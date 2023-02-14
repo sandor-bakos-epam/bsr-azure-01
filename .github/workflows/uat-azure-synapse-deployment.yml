@@ -32,15 +32,22 @@ jobs:
     # - The files' names have to be equal with the upserted or imported object's name. 
     - name: 'Check Synapse resource exists'
       run: |
+        $dataFlowName = "xxx"
+        $dataflowNames = az synapse data-flow list --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --query [].name
+        if(!([string]$dataflowNames -match $dataFlowName))
+        {
+          "$dataFlowName doesn't exist."
+        }
+        
         $pipelineName = "sample_pipeline_02"
-        $pipelineNames = az synapse pipeline list --workspace-name bsr-uat-synapse-01 --query [].name
-        if(!([string]$pipelineNames -match $pipelineName))
+        #$pipelineNames = az synapse pipeline list --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --query [].name
+        if(!([string](az synapse pipeline list --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --query [].name) -match $pipelineName))
         {
           "$pipelineName doesn't exist."
         }
     - name: 'Upsert Azure Synapse linked services'
       run: |
-        $synapseLinkedServicesPath = "${{ github.workspace }}\data\synapse\pipeline"
+        $synapseLinkedServicesPath = "${{ github.workspace }}\data\synapse\linkedService"
         foreach($file in Get-ChildItem -Path $synapseLinkedServicesPath\*.json -Name)
         {
           az synapse linked-service update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename --file @$synapseLinkedServicesPath/$file
