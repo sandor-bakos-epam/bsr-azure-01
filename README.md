@@ -1,1 +1,1 @@
-# bsr-azure-synapse-001
+# bsr-azure-01
