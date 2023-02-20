@@ -9,16 +9,19 @@ on:
 
 jobs:
   upload:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
     steps:
       -
         name: Checkout
         uses: actions/checkout@v3
       -
+        name: Zip the synapse resources
+        run: Compress-Archive -Path ${{ github.workspace }}\data\synapse -DestinationPath ${{ github.workspace }}\data\data-release.zip
+      -
         name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: synapse-resources:v${{ github.run_number }}
-          path: ${{ github.workspace }}\data\synapse\*
+          path: ${{ github.workspace }}\data\data-release.zip
       
