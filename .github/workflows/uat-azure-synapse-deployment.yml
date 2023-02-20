@@ -13,6 +13,7 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest
     environment: ${{ vars.ENVIRONMENT_UAT }}
+    
     steps:
     - name: 'Az CLI login'
       uses: azure/login@v1

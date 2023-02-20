@@ -1,0 +1,15 @@
+{
+    "name": "LS_DLS_GEN2_SYNW",
+    "type": "Microsoft.Synapse/workspaces/linkedservices",
+    "properties": {
+        "type": "AzureBlobFS",
+        "annotations": [],
+        "typeProperties": {
+            "url": "https://bsrepamdatalake.dfs.core.windows.net/"
+        },
+        "connectVia": {
+            "referenceName": "AutoResolveIntegrationRuntime",
+            "type": "IntegrationRuntimeReference"
+        }
+    }
+}

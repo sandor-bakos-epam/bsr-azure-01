@@ -1,0 +1,11 @@
+{
+    "name": "LS_KEYVAULT",
+    "type": "Microsoft.Synapse/workspaces/linkedservices",
+    "properties": {
+        "type": "AzureKeyVault",
+        "annotations": [],
+        "typeProperties": {
+            "baseUrl": "https://bsr-dev-keyvault-02.vault.azure.net"
+        }
+    }
+}

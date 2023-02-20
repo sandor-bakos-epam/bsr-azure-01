@@ -1,0 +1,44 @@
+{
+    "name": "LS_SFTP_Presto_EPAM",
+    "properties": {
+        "parameters": {
+            "sftp_host": {
+                "type": "string",
+                "defaultValue": "sftp.azure.com"
+            },
+            "sftp_username": {
+                "type": "string",
+                "defaultValue": "APPS_TO_DataLake"
+            },
+            "sftp_secret_name": {
+                "type": "String",
+                "defaultValue": "sftpftpuserpwd"
+            }
+        },
+        "annotations": [],
+        "type": "Sftp",
+        "typeProperties": {
+            "host": "@{linkedService().sftp_host}",
+            "port": 22,
+            "skipHostKeyValidation": true,
+            "authenticationType": "Basic",
+            "userName": "@{linkedService().sftp_username}",
+            "password": {
+                "type": "AzureKeyVaultSecret",
+                "store": {
+                    "referenceName": "LS_KEYVAULT",
+                    "type": "LinkedServiceReference"
+                },
+                "secretName": {
+                    "value": "@linkedService().sftp_secret_name",
+                    "type": "Expression"
+                }
+            }
+        },
+        "connectVia": {
+            "referenceName": "IR-AzurePrivateEndPoint",
+            "type": "IntegrationRuntimeReference"
+        }
+    },
+    "type": "Microsoft.Synapse/workspaces/linkedservices"
+}
