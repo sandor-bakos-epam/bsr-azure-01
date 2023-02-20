@@ -22,6 +22,6 @@ jobs:
         name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: synapse-resources:v${{ github.run_number }}
+          name: synapse-resources-v${{ github.run_number }}
           path: ${{ github.workspace }}\data\data-release.zip
       
