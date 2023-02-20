@@ -4,7 +4,6 @@ on:
   push: 
     #branches: main
     paths:
-      - 'data/synapse/**'
       - '.github/workflows/dev-download-artifact.yml'
 
 jobs:
@@ -15,12 +14,12 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-      -
-        name: Download artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: synapse-resources
-          path: ${{ github.workspace }}
-      -
-        run: ls
+      # -
+      #   name: Download artifacts
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: synapse-resources
+      #     path: ${{ github.workspace }}
+      # -
+      #   run: ls
       
