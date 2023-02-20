@@ -8,7 +8,7 @@ on:
       - '.github/workflows/dev-upload-artifact.yml'
 
 jobs:
-  docker:
+  upload:
     runs-on: ubuntu-latest
     environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
     steps:
@@ -20,5 +20,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: synapse-resources:v${{ github.run_number }}
-          path: ${{ github.workspace }}\data\synapse\
+          path: ${{ github.workspace }}\data\synapse\*
       
