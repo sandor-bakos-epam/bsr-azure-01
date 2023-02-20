@@ -1,0 +1,26 @@
+name: GitHub Actions - Artifact download - Demo
+
+on: 
+  push: 
+    #branches: main
+    paths:
+      - 'data/synapse/**'
+      - '.github/workflows/dev-download-artifact.yml'
+
+jobs:
+  upload:
+    runs-on: windows-latest
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: synapse-resources
+          path: ${{ github.workspace }}
+      -
+        run: ls
+      
