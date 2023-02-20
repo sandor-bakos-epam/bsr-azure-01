@@ -1,0 +1,24 @@
+name: GitHub Actions - Artifact upload - Demo
+
+on: 
+  push: 
+    #branches: main
+    paths:
+      - 'data/synapse/**'
+      - '.github/workflows/dev-upload-artifact.yml'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Upload artifacts
+        - uses: actions/upload-artifact@v3
+          with:
+            name: synapse-resources:v${{ github.run_number }}
+            path: ${{ github.workspace }}\data\synapse\
+      
