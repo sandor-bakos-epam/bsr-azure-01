@@ -16,18 +16,9 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Zip the synapse resources
-        run: Compress-Archive -Path ${{ github.workspace }}\data\synapse -DestinationPath ${{ github.workspace }}\data\data-release.zip
-      -
         name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: synapse-resources
-          path: ${{ github.workspace }}\data\data-release.zip
-      -
-        name: Upload artifacts 2.0
-        uses: actions/upload-artifact@v3
-        with:
-          name: synapse-resources-2.0
           path: ${{ github.workspace }}/data/synapse
       
