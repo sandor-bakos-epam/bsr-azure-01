@@ -13,7 +13,7 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest
     environment: ${{ vars.ENVIRONMENT_UAT }}
-    
+
     steps:
     - name: 'Az CLI login'
       uses: azure/login@v1
@@ -47,7 +47,7 @@ jobs:
         $synapseLinkedServicesPath = "${{ github.workspace }}\data\synapse\linkedService"
         foreach($file in Get-ChildItem -Path $synapseLinkedServicesPath\*.json -Name)
         {
-          az synapse linked-service update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename --file @$synapseLinkedServicesPath/$file
+          az synapse linked-service create --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename --file @$synapseLinkedServicesPath/$file
         }
     - name: 'Upsert Azure Synapse datasets'
       run: |
