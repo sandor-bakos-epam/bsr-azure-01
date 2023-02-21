@@ -7,7 +7,7 @@ on:
 
 env:
   DAY_OF_WEEK: Monday
-  VERSION: "data-releaseV0.1.${{github.run_number}}"
+  VERSION: "v0.1.${{ github.run_number }}"
 
 jobs:
   greeting_job:
