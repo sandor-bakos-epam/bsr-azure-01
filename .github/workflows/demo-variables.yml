@@ -6,14 +6,14 @@ on:
       - '.github/workflows/demo-variables.yml'
 
 env:
-  DAY_OF_WEEK: Monday
-  VERSION: "v0.1.${{ github.run_number }}"
+  DAY_OF_WEEK: Monday #environment variable for a single workflow
+  VERSION: "v0.1.${{ github.run_number }}" #environment variable for a single workflow with an embed default variable (github.run_number)
 
 jobs:
   greeting_job:
     runs-on: ubuntu-latest
-    environment: 
-      Name: ${{ vars.ENVIRONMENT_DEVELOPMENT }}
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} #Repository variable
+    env:
       Greeting: Hello
     steps:
       - name: "Say Hello Mona it's Monday"
@@ -21,5 +21,6 @@ jobs:
         env:
           First_Name: Mona
         run: | 
-          echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
           echo $VERSION
+          echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+          echo "${{ vars.LEAVING }} $First_Name!"
