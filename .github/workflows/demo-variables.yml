@@ -26,7 +26,9 @@ jobs:
         run: | 
           echo $VERSION
           echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
-          echo "test=${{ env.First_name }}!" >> "$GITHUB_OUTPUT"
+          test_variable = "${{ env.First_name }}!"
+          echo test_variable
+          echo "test=$test_variable" >> "$GITHUB_OUTPUT"
 
   leaving_job:
     runs-on: ubuntu-latest
