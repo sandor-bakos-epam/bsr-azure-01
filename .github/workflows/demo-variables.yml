@@ -12,6 +12,7 @@ env:
 jobs:
   greeting_job:
     runs-on: ubuntu-latest
+    environment: ${{ vars.ENVIRONMENT_UAT }}
     env:
       Greeting: Hello
     steps:
