@@ -36,5 +36,5 @@ jobs:
       - env:
           OUTPUT1: ${{needs.greeting_job.outputs.output1}}
         run: |
-        echo $VERSION
-        echo "${{ vars.LEAVING }} $OUTPUT1" #Environment variable
+          echo $VERSION
+          echo "${{ vars.LEAVING }} $OUTPUT1" #Environment variable
