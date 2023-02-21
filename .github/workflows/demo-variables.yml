@@ -12,30 +12,15 @@ env:
 jobs:
   greeting_job:
     runs-on: ubuntu-latest
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} #Repository variable
     env:
       Greeting: Hello
-    outputs:
-          output1: ${{ steps.step1.outputs.test }}
-
     steps:
       - name: "Say Hello Mona it's Monday"
-        id: step1
         if: ${{ env.DAY_OF_WEEK == 'Monday' }}
         env:
           First_Name: Mona
         run: | 
           echo $VERSION
           echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
-          echo "test=Have a nice day!" >> "$GITHUB_OUTPUT"
-
-  leaving_job:
-    runs-on: ubuntu-latest
-    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} #Repository variable
-    needs: greeting_job
-    
-    steps:
-      - env:
-          OUTPUT1: ${{needs.greeting_job.outputs.output1}}
-        run: |
-          echo $VERSION
-          echo "${{ vars.LEAVING }}! $OUTPUT1" #Environment variable
+          echo "${{ vars.LEAVING }} $First_Name!" #"ENVIRONMENT_DEVELOPMENT" environment's variable 
