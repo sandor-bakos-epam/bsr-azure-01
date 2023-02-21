@@ -1,0 +1,24 @@
+name: GitHub Actions - Variables - Demo
+run-name: ${{ github.actor }} is testing out Variables with GitHub Actions 🚀
+on: 
+  push: 
+    paths:
+      - '.github/workflows/demo-variables.yml'
+
+env:
+  DAY_OF_WEEK: Monday
+  VERSION: "data-releaseV0.1.${{github.run_number}}"
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
+    steps:
+      - name: "Say Hello Mona it's Monday"
+        if: ${{ env.DAY_OF_WEEK == 'Monday' }}
+        env:
+          First_Name: Mona
+        run: | 
+          echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+          echo $VERSION
