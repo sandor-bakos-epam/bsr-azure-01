@@ -26,7 +26,7 @@ jobs:
         run: | 
           echo $VERSION
           echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
-          echo "test=$First_name!"" >> "$GITHUB_OUTPUT"
+          echo "test=$First_name!" >> "$GITHUB_OUTPUT"
 
   leaving_job:
     runs-on: ubuntu-latest
