@@ -7,7 +7,7 @@ on:
 
 env:
   DAY_OF_WEEK: bsr #environment variable for a single workflow
-  VERSION: "/home/runner/work/bsr-azure-01/$DAY_OF_WEEK-azure-01" #environment variable for a single workflow with an embed default variable (github.run_number)
+  VERSION: "/home/runner/work/bsr-azure-01/bsr-azure-01" #environment variable for a single workflow with an embed default variable (github.run_number)
 
 jobs:
   greeting_job:
