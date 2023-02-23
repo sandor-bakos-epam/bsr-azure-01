@@ -11,7 +11,7 @@ permissions:
 
 env:
   test: "data"
-  DAY_OF_WEEK: "${{ env.test }}\\synapse\\linkedService"
+  DAY_OF_WEEK: "data\\synapse\\linkedService"
 
 jobs: 
   build-and-deploy:
