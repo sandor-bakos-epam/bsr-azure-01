@@ -16,7 +16,7 @@ jobs:
     env:
       Greeting: Hello
     steps:
-      - name: ${{ env.$DAY_OF_WEEK }}
+      - name: "Say Hello Mona it's Monday"
         if: ${{ env.DAY_OF_WEEK == 'Monday' }}
         env:
           First_Name: Mona
