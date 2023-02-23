@@ -7,7 +7,7 @@ on:
 
 env:
   DAY_OF_WEEK: Monday #environment variable for a single workflow
-  VERSION: "v0.1.${{ github.run_number }}" #environment variable for a single workflow with an embed default variable (github.run_number)
+  VERSION: "/home/runner/work/bsr-azure-01/bsr-azure-01" #environment variable for a single workflow with an embed default variable (github.run_number)
 
 jobs:
   greeting_job:
@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: $VERSION
-          path: ${{ github.workspace }}/data/synapse
+          path: $VERSION/data/synapse
