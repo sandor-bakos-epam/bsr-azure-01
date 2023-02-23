@@ -8,7 +8,10 @@ on:
 permissions:
       id-token: write
       contents: read
-      
+
+env:
+  DAY_OF_WEEK: synapse
+
 jobs: 
   build-and-deploy:
     runs-on: windows-latest
@@ -44,7 +47,7 @@ jobs:
         }
     - name: 'Upsert Azure Synapse linked services'
       run: |
-        $synapseLinkedServicesPath = "${{ github.workspace }}\data\synapse\linkedService"
+        $synapseLinkedServicesPath = "${{ github.workspace }}\data\$DAY_OF_WEEK\linkedService"
         foreach($file in Get-ChildItem -Path $synapseLinkedServicesPath\*.json -Name)
         {
           az synapse linked-service update --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename --file @$synapseLinkedServicesPath/$file
