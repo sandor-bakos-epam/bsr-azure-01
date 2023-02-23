@@ -25,6 +25,9 @@ jobs:
           echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
           echo "${{ vars.LEAVING }} $First_Name!" #"ENVIRONMENT_DEVELOPMENT" environment's variable 
       -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
         name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
