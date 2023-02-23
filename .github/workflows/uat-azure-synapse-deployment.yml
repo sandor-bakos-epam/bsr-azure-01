@@ -10,7 +10,8 @@ permissions:
       contents: read
 
 env:
-  DAY_OF_WEEK: "synapse"
+  test: "data"
+  DAY_OF_WEEK: "${{ env.test }}\synapse\linkedService"
 
 jobs: 
   build-and-deploy:
