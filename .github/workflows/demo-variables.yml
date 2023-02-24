@@ -15,7 +15,6 @@ jobs:
     environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} #Repository variable
     env:
       Greeting: Hello
-      test: "${{ env.DAY_OF_WEEK }}\\dev\\testing"
     steps:
       - name: "Say Hello Mona it's Monday"
         if: ${{ env.DAY_OF_WEEK == 'Monday' }}
