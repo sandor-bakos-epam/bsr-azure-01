@@ -17,7 +17,7 @@ permissions:
   pull-requests: write
 
 env:
-  releaseName: "ml-pipeline"
+  releaseName: "ml-pipeline-test"
   archiveFilesPath: "data"
 
 jobs:
