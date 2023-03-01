@@ -1,0 +1,59 @@
+name: 'Create Release for ML pipelines'
+
+on:
+ workflow_dispatch:
+ push:
+   branches:
+     - main
+     - feature/github-actions
+     - 'releases/**'
+   tags:
+     - '*'  
+      
+#Special permissions required for OIDC authentication
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+env:
+  releaseName: "ml-pipeline"
+  archiveFilesPath: "data"
+
+jobs:
+  build:
+    name: Publish binaries
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3.3.0
+      with:
+        # Repository name with owner. For example, actions/checkout
+        repository: ${{ github.repository }}
+        # The branch, tag or SHA to checkout. When checking out the repository that triggered a workflow, this defaults to the reference or SHA for that event.  Otherwise, uses the default branch.
+        ref: 'V-Robert-Rozas_mlx-synapse-full-demo' # 'master'
+    - name: Zip Release
+      uses: TheDoctor0/zip-release@0.7.1
+      with:
+        # Filename for archive
+        filename: ${{ env.releaseName }}-releaseV0.1.${{github.run_number}}.zip # default file is release.zip 
+        # Base path for archive files
+        path: ${{ env.archiveFilesPath }} # optional, default is .
+        # Working directory before zipping
+        # directory: # optional, default is .
+        # List of excluded files / directories
+        # exclusions: # optional, default is 
+        # List of excluded files / directories with recursive wildcards (only applies on Windows with `zip` type)
+        # recursive_exclusions: # optional, default is 
+        # Provide any custom parameters to the command
+        # custom: # optional, default is 
+        # Tool to use for archiving
+        # type: # optional, default is zip 
+    - name: Upload Release
+      uses: ncipollo/release-action@v1.12.0
+      with:
+        artifacts: "${{ env.releaseName }}-releaseV0.1.${{github.run_number}}.zip"
+        tag: "${{ env.releaseName }}-releaseV0.1.${{github.run_number}}.zip"
+        # token: ${{ secrets.GITHUB_TOKEN }}
