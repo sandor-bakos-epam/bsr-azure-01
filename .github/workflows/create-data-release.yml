@@ -33,7 +33,7 @@ jobs:
         # Repository name with owner. For example, actions/checkout
         repository: ${{ github.repository }}
         # The branch, tag or SHA to checkout. When checking out the repository that triggered a workflow, this defaults to the reference or SHA for that event.  Otherwise, uses the default branch.
-        ref: 'V-Robert-Rozas_mlx-synapse-full-demo' # 'master'
+        ref: 'main' # 'master'
     - name: Zip Release
       uses: TheDoctor0/zip-release@0.7.1
       with:
