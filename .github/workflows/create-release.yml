@@ -17,7 +17,7 @@ permissions:
   pull-requests: write
 
 env:
-  releaseName: "ml-pipeline"
+  releaseName: "releaseV0.1.${{github.run_number}}.zip"
   dataFilesPath: "data"
   mlFilesPath: "docker"
 
@@ -39,7 +39,7 @@ jobs:
       uses: TheDoctor0/zip-release@0.7.1
       with:
         # Filename for archive
-        filename: releaseV0.1.${{github.run_number}}.zip # default file is release.zip 
+        filename: ${{ env.releaseName }} # default file is release.zip 
         # Base path for archive files
         path: ${{ env.dataFilesPath }} # optional, default is .
         # Working directory before zipping
@@ -56,12 +56,12 @@ jobs:
       uses: TheDoctor0/zip-release@0.7.1
       with:
         # Filename for archive
-        filename: releaseV0.1.${{github.run_number}}.zip
+        filename: ${{ env.releaseName }}
         # Base path for archive files
         path: ${{ env.mlFilesPath }}
     - name: Upload Release
       uses: ncipollo/release-action@v1.12.0
       with:
-        artifacts: "releaseV0.1.${{github.run_number}}.zip"
-        tag: "releaseV0.1.${{github.run_number}}.zip"
+        artifacts: ${{ env.releaseName }}
+        tag: ${{ env.releaseName }}
         # token: ${{ secrets.GITHUB_TOKEN }}
