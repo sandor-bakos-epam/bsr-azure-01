@@ -18,7 +18,8 @@ permissions:
 
 env:
   releaseName: "ml-pipeline"
-  archiveFilesPath: "data"
+  dataFilesPath: "data"
+  mlFilesPath: "docker"
 
 jobs:
   build:
@@ -34,15 +35,14 @@ jobs:
         repository: ${{ github.repository }}
         # The branch, tag or SHA to checkout. When checking out the repository that triggered a workflow, this defaults to the reference or SHA for that event.  Otherwise, uses the default branch.
         ref: 'main' # 'master'
-    - name: Zip Release
+    - name: Zip data files
       uses: TheDoctor0/zip-release@0.7.1
       with:
         # Filename for archive
-        filename: ${{ env.releaseName }}-releaseV0.1.${{github.run_number}}.zip # default file is release.zip 
+        filename: releaseV0.1.${{github.run_number}}.zip # default file is release.zip 
         # Base path for archive files
-        # path: ${{ env.archiveFilesPath }} # optional, default is .
+        path: ${{ env.dataFilesPath }} # optional, default is .
         # Working directory before zipping
-        directory: data, docker
         # optional, default is .
         # List of excluded files / directories
         # exclusions: # optional, default is 
@@ -51,10 +51,17 @@ jobs:
         # Provide any custom parameters to the command
         # custom: # optional, default is 
         # Tool to use for archiving
-        # type: # optional, default is zip 
+        # type: # optional, default is zip
+    - name: Zip ML files
+      uses: TheDoctor0/zip-release@0.7.1
+      with:
+        # Filename for archive
+        filename: releaseV0.1.${{github.run_number}}.zip
+        # Base path for archive files
+        path: ${{ env.mlFilesPath }}
     - name: Upload Release
       uses: ncipollo/release-action@v1.12.0
       with:
-        artifacts: "${{ env.releaseName }}-releaseV0.1.${{github.run_number}}.zip"
-        tag: "${{ env.releaseName }}-releaseV0.1.${{github.run_number}}.zip"
+        artifacts: "releaseV0.1.${{github.run_number}}.zip"
+        tag: "releaseV0.1.${{github.run_number}}.zip"
         # token: ${{ secrets.GITHUB_TOKEN }}
