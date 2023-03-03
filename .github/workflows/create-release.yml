@@ -1,4 +1,4 @@
-name: 'Create Release for ML pipelines'
+name: 'Create Release'
 
 on:
  workflow_dispatch:
@@ -40,9 +40,12 @@ jobs:
         # Filename for archive
         filename: ${{ env.releaseName }}-releaseV0.1.${{github.run_number}}.zip # default file is release.zip 
         # Base path for archive files
-        path: ${{ env.archiveFilesPath }} # optional, default is .
+        # path: ${{ env.archiveFilesPath }} # optional, default is .
         # Working directory before zipping
-        # directory: # optional, default is .
+        directory: |
+          data
+          docker
+        # optional, default is .
         # List of excluded files / directories
         # exclusions: # optional, default is 
         # List of excluded files / directories with recursive wildcards (only applies on Windows with `zip` type)
