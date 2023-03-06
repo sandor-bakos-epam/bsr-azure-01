@@ -44,5 +44,5 @@ jobs:
           {
             Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder -Name
             "Only YAML files:"
-            (Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder\*.yml -Name)[0]
+            @(Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder\*.yml -Name)[0]
           }
