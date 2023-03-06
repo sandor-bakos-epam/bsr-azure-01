@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing out Azure Machine Learning deployment w
 on: 
   push: 
     paths:
-      - '.github/workflows/uat-ml-pipeline-deploy.yml'
+      - '.github/workflows/uat-ml-pipeline-deployment.yml'
 
 permissions:
       id-token: write
