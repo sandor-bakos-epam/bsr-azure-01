@@ -37,18 +37,11 @@ jobs:
 
     - name: Unzip Release Artifact
       run: cd ${{ env.artifactDirectory }}; Get-ChildItem -Filter *.zip | Expand-Archive -DestinationPath . -Force 
-    
-    - name: 'Az CLI login'
-      uses: azure/login@v1
-      with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: 'Run Azure CLI commands'
-      run: |
-          az account show
-          az group list
-          pwd
+          
     - name: Iterate over ${{ env.mlPath }}
       run: |
+          Get-Location
+          Git-ChildItem
           foreach($folder in Get-ChildItem -path ${{ env.mlPath }} -Directory -Name)
           {
             Get-ChildItem -Path $folder -Name
