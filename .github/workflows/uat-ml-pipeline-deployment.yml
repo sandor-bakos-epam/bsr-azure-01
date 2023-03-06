@@ -43,7 +43,11 @@ jobs:
       run: |
           foreach($folder in Get-ChildItem -path ${{ env.artifactDirectory }}/${{ env.mlPath }} -Directory -Name)
           {
-            Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder -Name
-            "Only YAML files:"
-            @(Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder\*.yml -Name)[0]
+            $ymlFile = @(Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder\*.yml -Name)[0]
+            if(($ymlFile == ""))
+            {
+              Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder -Name
+              "Only YAML files:"
+              @(Get-ChildItem -Path ${{ env.artifactDirectory }}/${{ env.mlPath }}/$folder\*.yml -Name)[0]
+            }
           }
