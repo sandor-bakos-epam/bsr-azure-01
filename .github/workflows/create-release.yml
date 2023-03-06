@@ -1,14 +1,9 @@
 name: 'Create Release'
 
 on:
- workflow_dispatch:
- push:
-   branches:
-     - main
-     - feature/github-actions
-     - 'releases/**'
-   tags:
-     - '*'  
+  push: 
+    paths:
+      - '.github/workflows/create-release.yml'
       
 #Special permissions required for OIDC authentication
 permissions:
@@ -19,7 +14,7 @@ permissions:
 env:
   releaseName: "releaseV0.1.${{github.run_number}}"
   dataFilesPath: "data"
-  mlFilesPath: "docker"
+  mlFilesPath: "models"
 
 jobs:
   build:
