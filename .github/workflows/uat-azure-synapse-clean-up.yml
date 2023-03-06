@@ -29,47 +29,47 @@ jobs:
         $synapseLinkedServicesPath = "${{ github.workspace }}\data\synapse\linkedService"
         foreach($file in Get-ChildItem -Path $synapseLinkedServicesPath\*.json -Name)
         {
-          az synapse linked-service delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename --file @$synapseLinkedServicesPath/$file
+          az synapse linked-service delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseLinkedServicesPath/$file).Basename
         }
     - name: 'Delete Azure Synapse datasets'
       run: |
         $synapseDatasetPath = "${{ github.workspace }}\data\synapse\dataset"
         foreach($file in Get-ChildItem -Path $synapseDatasetPath\*.json -Name)
         {
-          az synapse dataset delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseDatasetPath/$file).Basename --file @$synapseDatasetPath/$file
+          az synapse dataset delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseDatasetPath/$file).Basename
         }
     - name: 'Delete Azure Synapse sql scripts'
       run: |
         $synapseSQLScriptPath = "${{ github.workspace }}\data\synapse\sqlScript"
         foreach($file in Get-ChildItem -Path $synapseSQLScriptPath\*.sql -Name)
         {
-          az synapse sql-script delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseSQLScriptPath/$file).Basename --file @$synapseSQLScriptPath/$file
+          az synapse sql-script delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseSQLScriptPath/$file).Basename
         }
     - name: 'Delete Azure Synapse notebooks'
       run: |
         $synapseNotebookPath = "${{ github.workspace }}\data\synapse\notebook"
         foreach($file in Get-ChildItem -Path $synapseNotebookPath\*.ipynb -Name)
         {
-          az synapse notebook delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseNotebookPath/$file).Basename --file @$synapseNotebookPath/$file --spark-pool-name ${{ vars.AZURE_SYNAPSE_SPARK_POOL_NAME }}
+          az synapse notebook delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseNotebookPath/$file).Basename
         }
     - name: 'Delete Azure Synapse dataflows'
       run: |
         $synapseDataFlowPath = "${{ github.workspace }}\data\synapse\dataflow"
         foreach($file in Get-ChildItem -Path $synapseDataFlowPath\*.json -Name)
         {
-          az synapse data-flow delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseDataFlowPath/$file).Basename --file @$synapseDataFlowPath/$file
+          az synapse data-flow delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseDataFlowPath/$file).Basename
         }
     - name: 'Delete Azure Synapse pipelines'
       run: |
         $synapsePipelinePath = "${{ github.workspace }}\data\synapse\pipeline"
         foreach($file in Get-ChildItem -Path $synapsePipelinePath\*.json -Name)
         {
-          az synapse pipeline delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapsePipelinePath/$file).Basename --file @$synapsePipelinePath/$file
+          az synapse pipeline delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapsePipelinePath/$file).Basename
         }
     - name: 'Delete Azure Synapse triggers'
       run: |
         $synapseTriggerPath = "${{ github.workspace }}\data\synapse\trigger"
         foreach($file in Get-ChildItem -Path $synapseTriggerPath\*.json -Name)
         {
-          az synapse trigger delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseTriggerPath/$file).Basename --file @$synapseTriggerPath/$file
+          az synapse trigger delete --no-wait --yes --workspace-name ${{ vars.AZURE_SYNAPSE_WORKSPACE_NAME }} --name (Get-Item $synapseTriggerPath/$file).Basename
         }      
