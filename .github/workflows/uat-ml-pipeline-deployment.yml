@@ -41,7 +41,7 @@ jobs:
     - name: Iterate over ${{ env.mlPath }}
       run: |
           Get-Location
-          Git-ChildItem
+          Get-ChildItem
           foreach($folder in Get-ChildItem -path ${{ env.mlPath }} -Directory -Name)
           {
             Get-ChildItem -Path $folder -Name
