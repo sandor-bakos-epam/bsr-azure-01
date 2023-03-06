@@ -4,6 +4,7 @@ on:
   push: 
     paths:
       - '.github/workflows/uat-ml-pipeline-deployment.yml'
+  workflow_dispatch:  
 
 permissions:
       id-token: write
