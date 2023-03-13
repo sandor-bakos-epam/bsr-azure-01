@@ -26,4 +26,4 @@ jobs:
           pwd
           
     - name: Add ML extension
-      run: az extension add -n ml
+      run: az extension add -n ml; az ml -h
