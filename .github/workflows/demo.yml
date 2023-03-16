@@ -25,7 +25,7 @@ env:
 jobs:
   job-01:
     name: 'First Job'
-    runs-on: mx-self-hosted
+    runs-on: ubuntu-latest
     environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} # ${{ vars.ENVIRONMENT_UAT }} / ${{ vars.ENVIRONMENT_PROD }}
 
     steps: 
