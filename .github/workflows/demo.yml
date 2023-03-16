@@ -1,0 +1,52 @@
+name: 'Generic GitHub Actions workflow template'
+
+#Special permissions required for Azure OpenID Connect (OIDC) authentication
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+    - main
+    - fb/branch-01
+    - 'releases/**'
+    tags:
+      - '*'
+    paths:
+      - '.github/workflows/generic-workflow-template.yml'
+  workflow_dispatch:
+
+env:
+  environmentVariable01: "value1"
+  environmentVariable02: "value2"
+
+jobs:
+  job-01:
+    name: 'First Job'
+    runs-on: mx-self-hosted
+    environment: ${{ vars.ENVIRONMENT_DEVELOPMENT }} # ${{ vars.ENVIRONMENT_UAT }} / ${{ vars.ENVIRONMENT_PROD }}
+
+    steps: 
+    - 
+      name: Download latest release
+      uses: robinraju/release-downloader@v1.7
+      with:
+        latest: true
+        fileName: "*.zip"
+        out-file-path: ${{ env.environmentVariable01 }}
+    - 
+      name: Unzip Release Artifact
+      run: cd ${{ env.environmentVariable01 }}; Get-ChildItem -Filter *.zip | Expand-Archive -DestinationPath . -Force 
+    - 
+      name: Azure Login
+      uses: Azure/login@v1.4.6
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    -
+      name: Run Azure CLI commands
+      run: |
+          az account show
+          az group list
+          pwd
