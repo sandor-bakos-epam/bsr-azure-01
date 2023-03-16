@@ -1,6 +1,8 @@
 name: 'Create Release'
 
 on:
+  schedule:
+   - cron: "0 3 5 * *"
   push: 
     paths:
       - '.github/workflows/create-release.yml'
