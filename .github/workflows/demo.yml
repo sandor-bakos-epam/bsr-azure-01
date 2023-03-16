@@ -15,7 +15,7 @@ on:
     tags:
       - '*'
     paths:
-      - '.github/workflows/generic-workflow-template.yml'
+      - '.github/workflows/demo.yml'
   workflow_dispatch:
 
 env:
